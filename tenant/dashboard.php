@@ -202,37 +202,41 @@ $stmt->close();
                     </div>
                 </div>
 
-                <!-- Payment Summary Card -->
-                <div class="col-md-6 mb-3">
-                    <div class="card h-100">
-                        <div class="card-header bg-info text-white">
-                            <h5 class="mb-0"><i class="bi bi-wallet2"></i> Ringkasan Pembayaran <?= $filter_year ?></h5>
+            <!-- Payment Summary Card -->
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="bi bi-wallet2"></i> Ringkasan Pembayaran <?= $filter_year ?></h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <h3 class="text-success"><?= isset($stats['paid_count']) ? $stats['paid_count'] : 0 ?></h3>
+                                <p class="mb-0">Lunas</p>
+                            </div>
+                            <div class="col-4">
+                                <h3 class="text-warning"><?= isset($stats['pending_count']) ? $stats['pending_count'] : 0 ?></h3>
+                                <p class="mb-0">Pending</p>
+                            </div>
+                            <div class="col-4">
+                                <h3 class="text-danger"><?= isset($stats['overdue_count']) ? $stats['overdue_count'] : 0 ?></h3>
+                                <p class="mb-0">Terlambat</p>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="row text-center">
-                                <div class="col-4">
-                                    <h3 class="text-success"><?= $stats['paid_count'] ?></h3>
-                                    <p class="mb-0">Lunas</p>
-                                </div>
-                                <div class="col-4">
-                                    <h3 class="text-warning"><?= $stats['pending_count'] ?></h3>
-                                    <p class="mb-0">Pending</p>
-                                </div>
-                                <div class="col-4">
-                                    <h3 class="text-danger"><?= $stats['overdue_count'] ?></h3>
-                                    <p class="mb-0">Terlambat</p>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="text-center">
-                                <p class="mb-0"><strong>Total Pembayaran:</strong></p>
-                                <h4>Rp <?= number_format($stats['total_amount'], 0, ',', '.') ?></h4>
-                            </div>
+                        <hr>
+                        <div class="text-center">
+                            <p class="mb-0"><strong>Total Pembayaran:</strong></p>
+                            <?php
+                            if (isset($stats['total_amount']) && $stats['total_amount'] !== null) {
+                                echo "<h4>Rp " . number_format($stats['total_amount'], 0, ',', '.') . "</h4>";
+                            } else {
+                                echo "<h4>Rp 0</h4>"; // Jika kosong, tampilkan angka 0
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
             </div>
-
             <!-- Quick Actions -->
             <div class="row mb-4">
                 <div class="col-md-12">
